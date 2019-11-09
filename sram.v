@@ -1,4 +1,4 @@
-module ram (clk, w_addr, din, we, oe, r_addr, dout);
+module sram (clk, w_addr, din, we, oe, r_addr, dout);
 input clk;
 input [2:0] w_addr;
 input [15:0] din;
