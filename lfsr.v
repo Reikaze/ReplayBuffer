@@ -3,10 +3,10 @@ module lfsr #(parameter NBITS)	// parameter not really needed...
 	      input rst,
 	      input we,
 	      input [NBITS-1:0] data;
-	      output reg [NBITS-1:0] q);
+	      output [NBITS-1:0] q);
 
 reg [NBITS-1:0] d = 0;
-reg xor = q[16] ^ q[15] ^ q[13] ^ q[4];
+reg xor = d[16] ^ d[15] ^ d[13] ^ d[4]; // X16 + X14 + X13 + X11 + 1
 
 
 always@(posedge clk, negedge rst) begin
