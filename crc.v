@@ -3,9 +3,6 @@
 	This code takes a squence number that is appended to 
 	the TLP at the MSB that is received. Then the CRC that
 	is generated will be appended to the LSB of the TLP.
-
-
-
 */
 `include "lfsr.v"
 
@@ -54,5 +51,3 @@ end
 assign crc_out = {seq_num,tlp_in,lfsr_o};			// the 16 bits from the lfsr appended to tlp
 
 endmodule
-
-

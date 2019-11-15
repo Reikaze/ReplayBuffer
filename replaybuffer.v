@@ -35,9 +35,9 @@ endmodule
 always @(posedge clk or negedge reset)
 begin
 if (reset)
-	for(j = 0; i <= 1023; j =j + 1) 
+	for(j = 0; j <= 1023; j =j + 1) 
 	begin
-		TLP[i] <= 0;
+		TLP[j] <= 0;
 	end
 end
 
