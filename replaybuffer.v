@@ -1,52 +1,69 @@
 module replaybuffer (clk, w_addr, din, we, oe, r_addr, dout);
+//control inputs
 input clk; //clock
-input we, oe; //Write enable, out enable
 input reset; //reset the buffer
-input address; //placement in buffer
+input we; //Write enable
 input tim_out// replay buffer time out
 input [1:0] ack_nak; //ACK or NAK
-input [11:0] seq;
-input ready;
-input [15:0] din; //data in
-output [15:0] dout; //data out
-reg [15:0] ram_reg;
-reg [15:0] memory [7:0];
-integer    i;
 
+//Data inputs 
+input [11:0] seq; //seq
+input [15:0] din; //data in
+
+//output
+output [15:0] dout; //data out
+output [1024:0] reg TLP [64:0];
+output ready; 
+
+integer i;
+integer j;
+integer k;
+
+//load input
 initial begin
-#1;
-  for (i = 0; i <= 3; i = i + 1) begin
-       $display(" Address = %d,  Memory Data = %h",i,memory [i]);
-  end
+for (i = 0; i < 5; i= i + 1)
+begin
+	TLP[i] = din;
+	//display initial TLP
+	#1;
+	for (i = 0; i <= 3; i = i + 1) begin
+	   $display(" Address = %d,  TLP Data = %h",i,TLP [i]);
+	end
 end
+
 //reset
 always @(posedge clk, negedge reset)
 begin
 if (reset)
-	for(j = 0; j <= 7; j++) 
+	for(j = 0; i <= 1023; j =j + 1) 
 	begin
-		memory[j] <= 0;
-end
-
-always @(posedge clk, negedge reset)
-begin
-case (ack_nak)
-2'b00://not recieved
-2'b01://ACK
-2'b10://NAK
-
-i = 0;
-
-	else if (we)
-		memory[addr] <= din;
-		i++;
+		TLP[i] <= 0;
 	end
 end
 
-always @(posedge clk) begin
-	ram_reg <= memory[r_addr];
+//Replay buffer ACK NAK logic
+//need to impliment FIFO
+always @(posedge clk, negedge reset)
+begin
+if (we)
+	begin
+		case (ack_nak)
+		2'b00://not recieved - do nothing, assert ready
+			ready = 1;
+		2'b01://ACK - clear up to the ACK
+			for(k = 0; k <= 1022; k = k + 1) 
+			begin
+				TLP[i] = TLP[i+1];
+			end
+			TLP[1023] = 0;
+		2'b10://NAK - resend the first packet 
+			dout <= TLP[0];
+	end
 end
 
-assign dout = (~we && oe) ? ram_reg : 8'hzz;
+//output ACK
+always @(posedge clk) begin
+	dout <= TLP[0];
+end
 
 endmodule
