@@ -18,6 +18,7 @@ output ready;
 integer i;
 integer j;
 integer k;
+integer l;
 
 //load input
 always @(posedge clk or negedge reset) begin
@@ -50,13 +51,23 @@ if (we)
 		2'b00://not recieved - do nothing, assert ready
 			ready = 1;
 		2'b01://ACK - clear up to the ACK
-			for(k = 0; k <= 1022; k = k + 1) 
+		//get the value for the sequence number at bottom of the buffer
+			l = [63:51]Buffer[0];
+			for(l=; l<=seq;l = l + 1 )
 			begin
-				Buffer[i] = Buffer[i+1];
+				for(k = 0; k <= 1022; k = k + 1) 
+				begin
+					Buffer[i] = Buffer[i+1];
+				end
+				Buffer[1023] = 0;
 			end
-			Buffer[1023] = 0;
-		2'b10://NAK - resend the first packet 
-			dout <= Buffer[0];
+		2'b10://NAK - resend to seq
+			//get the value for the sequence number at bottom of the buffer
+			l = [63:51]Buffer[0];
+			for(l=; l<=seq;l = l + 1 )
+			begin
+				dout <= Buffer[l];
+			end
 	end
 end
 
