@@ -11,8 +11,8 @@ input [11:0] seq; //seq
 input [15:0] din; //data in
 
 //output
-output [15:0] dout; //data out
-output [1024:0] reg TLP [64:0];
+output [63:0] dout; //data out
+output reg [64:0] TLP [1024:0];
 output ready; 
 
 integer i;
@@ -20,19 +20,19 @@ integer j;
 integer k;
 
 //load input
-initial begin
-for (i = 0; i < 5; i= i + 1)
-begin
-	TLP[i] = din;
-	//display initial TLP
-	#1;
-	for (i = 0; i <= 3; i = i + 1) begin
-	   $display(" Address = %d,  TLP Data = %h",i,TLP [i]);
-	end
+always @(posedge clk or negedge reset) begin
+    if (!reset) begin
+        for (i = 0; i < 5; i= i + 1)
+        begin
+            TLP[i]<= din;
+            //display initial TLP
+        end
+    end
 end
+endmodule
 
 //reset
-always @(posedge clk, negedge reset)
+always @(posedge clk or negedge reset)
 begin
 if (reset)
 	for(j = 0; i <= 1023; j =j + 1) 
