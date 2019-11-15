@@ -32,8 +32,8 @@ end
 lfsr #(.NBITS(16)) rr1(.clk(clk),.rst(rst),.we(we),.data(data),.q(lfsr_o), .d_fin(lfsr_fin));	
 								// .data = inputs     .q = output
 /*
-always@(posedge clk) begin					// this block might be better than the next... need testing
-	if(lfsr_fin == 1)begin
+always@(posedge clk) begin					 this block might be better than the next... need testing
+	if(lfsr_fin == 1)begin					 might have to modify lfsr.v for this to work properly
 		we = 0;
 	else
 		we = 1;
