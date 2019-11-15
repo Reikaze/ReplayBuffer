@@ -36,7 +36,7 @@ begin
 if (reset)
 	for(j = 0; j <= 1023; j =j + 1) 
 	begin
-		TLP[j] <= 0;
+		Buffer[j] <= 0;
 	end
 end
 
@@ -52,17 +52,17 @@ if (we)
 		2'b01://ACK - clear up to the ACK
 			for(k = 0; k <= 1022; k = k + 1) 
 			begin
-				TLP[i] = TLP[i+1];
+				Buffer[i] = Buffer[i+1];
 			end
-			TLP[1023] = 0;
+			Buffer[1023] = 0;
 		2'b10://NAK - resend the first packet 
-			dout <= TLP[0];
+			dout <= Buffer[0];
 	end
 end
 
 //output ACK
 always @(posedge clk) begin
-	dout <= TLP[0];
+	dout <= Buffer[0];
 end
 
 endmodule
