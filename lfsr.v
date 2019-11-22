@@ -1,9 +1,10 @@
-module lfsr #(parameter NBITS = 16)	// parameter not really needed...
+module lfsr #(parameter NBITS)	// parameter not really needed...
 	     (input clk,
 	      input rst,
 	      input we,
-	      input [NBITS-1:0] data,
-	      output [NBITS-1:0] q);
+	      input [127:0] data,
+	      output [NBITS-1:0] q,
+	      output d_fin);
 
 reg [NBITS:1] d = 0;
 reg xorin;
@@ -12,18 +13,20 @@ always@(posedge clk, negedge rst)
 begin
 	if(rst)
 	begin
-		d <= 4'hFF;
+		d <= 16'b0;
 	end
-	else if(we) 
+	if(we) 
 		d <= data;
 	else
 		d <= {d[NBITS-1:1], xorin};
 end
 
 always@(*)begin
-	xorin = (d[16] ^ d[15] ^ d[13] ^ d[4]); // X16 + X14 + X13 + X11 + 1
+	xorin = (d[12] ^ d[3] ^ d[1]); 
 end
 
+
 assign q = d[NBITS-1:1];
+assign d_fin = (d[NBITS:1] == data) ? 1'b1 : 1'b0;
 
 endmodule
