@@ -21,19 +21,19 @@
 
 module combination(clk, reset, we, oe, full, empty, w_addr, r_addr, din, dout, ack, nak);
     
-input  [1023:0] din;
+input  [128:0] din;
 input  clk, reset;
 input  we, oe;
 input  ack, nak;
 output full, empty;
 output [2:0] w_addr, r_addr;
-output [1023:0] dout; 
+output [128:0] dout; 
 
 integer i;
 
 reg [2:0]  w_addr, r_addr;
-reg [1023:0] ram_reg;
-reg [1023:0] memory [7:0];   
+reg [128:0] ram_reg;
+reg [128:0] memory [512:0];   
 
 always@(posedge clk)
 begin
