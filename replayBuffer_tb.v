@@ -1,35 +1,16 @@
 `timescale 1ns/100ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/27/2019 10:31:05 AM
-// Design Name: 
-// Module Name: combination_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
-module top_tb;
+module replayBuffer_tb;
     
-    reg  [1023:0] din;
+    reg  [128:0] din;
     reg  clk, reset;
     reg  we, oe, ack, nak;
+    reg tim_out;
     wire full, empty;
     wire [2:0] w_addr, r_addr;
-    wire [1023:0] dout; 
+    wire [128:0] dout; 
     
-    top uut(clk, reset, we, oe, full, empty, w_addr, r_addr, din, dout, ack, nak);
+    replayBuffer uut(clk, reset, we, oe, tim_out, full, empty, w_addr, r_addr, din, dout, ack, nak);
     
     initial begin
     din=16'h0000;
@@ -69,7 +50,9 @@ module top_tb;
         #10
         nak=1;
         #10
-        nak=0;
+        nak=0; 
+        tim_out = 1;
+        #10;
     end
 
 endmodule
