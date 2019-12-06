@@ -31,7 +31,7 @@ begin
 end
 
 initial
-        $monitor($time, " rst = %b ready = %b tlp_in = %h\n\t\t\t lfsr = %b \n\t\t\t crc_out = %h \n",  rst_t, rdy, tlp_in_t, lfsr_o, crc_out_t);
+        $monitor($time, " rst = %b ready = %b tlp_in = %h\n\t\t\t TLP w/ Sequence# = %b\n\t\t\t lfsr = %b \n\t\t\t crc_out = %h \n",  rst_t, rdy, tlp_in_t,data_o, lfsr_o, crc_out_t);
 	
 initial
 begin
@@ -55,7 +55,5 @@ end
 initial begin
 #500 $finish;
 end
-
-endmodule
 
 endmodule
