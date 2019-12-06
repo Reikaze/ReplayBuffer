@@ -11,15 +11,16 @@ reg [95:0] tlp_in_t;
 
 wire [15:0] lfsr_o;
 wire [127:0] crc_out_t;
+wire [127:0] data_o;
 wire rdy;
 
 initial
         $vcdpluson;
 
 
-crc UUT(.rdy(rdy),.lfsr_in(lfsr_o),.tlp_in(tlp_in_t),.crc_out(crc_out_t));
+crc UUT(.rdy(rdy||rdy_in),.lfsr_in(lfsr_o),.tlp_in(tlp_in_t),.data_o(data_o),.crc_out(crc_out_t));
 
-lfsr #(16) rr1 (.clk(clk_t), .rst(rst_t), .we(we), .data(crc_out_t), .q(lfsr_o), .rdy(rdy));
+lfsr #(16) rr1 (.clk(clk_t), .rst(rst_t), .we(we), .data(data_o), .q(lfsr_o), .rdy(rdy));
 
 
 
@@ -36,7 +37,7 @@ initial
 begin
 rst_t = 0; we = 1;
 
-#50 rst_t = 1; we = 0;
+#50 rst_t = 1; we = 0; rdy_in = 1;
 tlp_in_t = 96'h123456789abcdefffff12345;
 
 /*
@@ -54,5 +55,7 @@ end
 initial begin
 #500 $finish;
 end
+
+endmodule
 
 endmodule
