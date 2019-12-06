@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module combination_tb;
+module top_tb;
     
     reg  [1023:0] din;
     reg  clk, reset;
@@ -29,7 +29,7 @@ module combination_tb;
     wire [2:0] w_addr, r_addr;
     wire [1023:0] dout; 
     
-    combination uut(clk, reset, we, oe, full, empty, w_addr, r_addr, din, dout, ack, nak);
+    top uut(clk, reset, we, oe, full, empty, w_addr, r_addr, din, dout, ack, nak);
     
     initial begin
     din=16'h0000;
@@ -66,6 +66,10 @@ module combination_tb;
         we=0;oe=1;
         #10
         we=0;oe=0;
+        #10
+        nak=1;
+        #10
+        nak=0;
     end
 
 endmodule

@@ -19,7 +19,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module combination(clk, reset, we, oe, full, empty, w_addr, r_addr, din, dout, ack, nak);
+module top(clk, reset, we, oe, full, empty, w_addr, r_addr, din, dout, ack, nak);
     
 input  [128:0] din;
 input  clk, reset;
