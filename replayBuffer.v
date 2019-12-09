@@ -1,19 +1,19 @@
-module replayBuffer(clk, reset, we, oe, full, empty, w_addr, r_addr, din, dout, ack, nak);
+module replayBuffer(clk, reset, we, oe, tim_out, full, empty, w_addr, r_addr, din, dout, ack, nak);
     
-input  [128:0] din;
+input  [127:0] din;
 input  clk, reset;
 input  we, oe;
 input  ack, nak;
 input  tim_out;
 output full, empty;
 output [2:0] w_addr, r_addr;
-output [128:0] dout; 
+output [127:0] dout; 
 
 integer i;
 
 reg [2:0]  w_addr, r_addr;
-reg [128:0] ram_reg;
-reg [128:0] memory [512:0];   
+reg [127:0] ram_reg;
+reg [127:0] memory [511:0];   
 
 always@(posedge clk)
 begin
