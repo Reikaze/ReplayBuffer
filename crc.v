@@ -9,27 +9,59 @@
 
 */
 
-module crc(rdy, tlp_in, lfsr_in, crc_out);
-input rdy;
-input [95:0] tlp_in;
-input [15:0] lfsr_in;
-output reg [127:0] crc_out;
+`include "seq.v"
 
-reg [11:0] seq_num = 12'b0;	
-reg [15:0] seq_out;						// everytime we read the next byte assign seq num												// seq_num (4bit + 12bit) + tlp_in (96 bit) + 16 bit 0s = 96 bits
-reg [127:0] data;						// increment sequence number
-reg [127:0] crc_out;						// append sequence number to beginning of tlp and 16 bit 0 to end
-								// lfsr will take the appended data and output 16 bit crc
-wire [15:0] lfsr_o;						
+module crc #(parameter NBITS=16)	// parameter not really needed...
+	     (input clk,
+	      input rst,
+	      input we,
+	      input [95:0] data,
+	      output reg [NBITS-1:0] q,
+	      output reg [127:0] dataOut,
+	      output reg rdy);
+
+reg [NBITS:1] d;
+reg xorin;
+integer count = 0;
+reg [11:0] seq;
 
 
-always@(*)begin				
-	if(rdy) begin		
-	seq_num = seq_num + 1;	
-	seq_out = {4'b0,seq_num};						
-	data = {seq_out,tlp_in,16'b0};					
-	crc_out = {data[127:16],lfsr_in};
+always@(posedge clk, negedge rst)
+begin
+	if(!rst)
+	begin
+		d <= 16'b1;
+		seq <= 0;
 	end
-end										
-										
+	else begin
+		if(we)begin
+			d <= data;
+			if(rdy)begin
+			rdy <= 0;
+			end
+		end
+		else begin	
+			if(count < 15)begin
+			d <= {d[NBITS-1:1], xorin};
+			rdy <= 0;
+			count <= count + 1;
+			end
+			else begin
+			rdy <= 1;
+			seq <= seq + 1;
+			end
+		end
+	end
+end
+
+always@(*)begin
+	xorin = (d[12] ^ d[3] ^ d[1]);
+	if(rdy)begin
+	q = d[NBITS:1];
+	dataOut[15:0] = q;
+	dataOut[95:16] = data[95:16];
+	dataOut[127:96] = seq;
+	end
+end
+
 endmodule
