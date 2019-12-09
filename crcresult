@@ -1,0 +1,114 @@
+Chronologic VCS simulator copyright 1991-2018
+Contains Synopsys proprietary information.
+Compiler version O-2018.09-SP2-3_Full64; Runtime version O-2018.09-SP2-3_Full64;  Dec  9 15:36 2019
+                   0 we = 0 rst = 1 finish = x
+			 data = xxxxxxxxxxxxxxxxxxxxxxxx
+			 d = 0000000000000001
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                  10 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000000000011
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                  30 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000000000111
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                  50 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000000001110
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                  70 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000000011101
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                  90 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000000111010
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 110 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000001110100
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 130 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000011101001
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 150 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000000111010011
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 170 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000001110100111
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 190 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000011101001110
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 210 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0000111010011101
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 230 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0001110100111011
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 250 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0011101001110110
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 270 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 0111010011101100
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 290 we = 1 rst = 0 finish = 0
+			 data = 111122223333444455556666
+			 d = 1110100111011001
+			 dataOut = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                 310 we = 1 rst = 0 finish = 1
+			 data = 111122223333444455556666
+			 d = 1110100111011001
+			 dataOut = 0000000111112222333344445555e9d9
+
+                 330 we = 1 rst = 0 finish = 1
+			 data = 111122223333444455556666
+			 d = 1110100111011001
+			 dataOut = 0000000211112222333344445555e9d9
+
+                 350 we = 1 rst = 0 finish = 1
+			 data = 111122223333444455556666
+			 d = 1110100111011001
+			 dataOut = 0000000311112222333344445555e9d9
+
+                 370 we = 1 rst = 0 finish = 1
+			 data = 111122223333444455556666
+			 d = 1110100111011001
+			 dataOut = 0000000411112222333344445555e9d9
+
+                 390 we = 1 rst = 0 finish = 1
+			 data = 111122223333444455556666
+			 d = 1110100111011001
+			 dataOut = 0000000511112222333344445555e9d9
+
+$finish called from file "crc_tb.v", line 35.
+$finish at simulation time                  410
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 410
+CPU Time:      0.300 seconds;       Data structure size:   0.0Mb
+Mon Dec  9 15:36:55 2019
