@@ -1,8 +1,7 @@
-module top(input clk,rst);
+module top(input clk,rst,input [127:0] TLP_in);
 //For LFSR
 wire  we;
 wire  rdy;
-wire [127:0] TLP_in;
 //For CRC
 wire [127:0] din;
 //for Replay Buffer
