@@ -1,3 +1,4 @@
+`include "crc.v"
 module crc_tb;
 
 	//parameter NUMB = 16;
@@ -5,29 +6,33 @@ module crc_tb;
 	reg clk;
 	reg rst;
 	reg we;
-	reg [127:0] data;
+	reg [95:0] data;
 	wire [15:0] q;
 	wire rdy;
     wire [127:0] dataOut;
+
 crc #(16) rr1(.clk(clk),.rst(rst),.we(we),.data(data),.q(q),.dataOut(dataOut),.rdy(rdy));
 
 initial
-       $monitor($time, " we = %b rst = %b finish = %b\n\t\t\t data = %h\n\t\t\t d = %b\n\t\t\t q = %b\n", rst, we, rdy, data, crc.d, q);
+       $monitor($time, " we = %b rst = %b finish = %b\n\t\t\t data = %h\n\t\t\t d = %b\n\t\t\t dataOut = %h\n", rst, we, rdy, data, crc.d, dataOut);
 
 
 initial
 begin
         rst = 1'b0; we = 1;
 #10	rst = 1'b1; we = 0;
-	data = 128'h11112222333344445555666677771111;
+	data = 96'h111122223333444455556666;
 /*
-#10	data = 128'h11112222333344445555666688880000;
- 	
+#340	rst = 1'b0; 
+#10	rst = 1'b1; we = 1;
+#10	we = 0;
+	data = 96'h11112222000044445555AAAA;
+	
 #200	data = 128'h1111222233334444ffff666677770000;
 #200	data = 128'h1111eeee333344445555666677770000;
 */
 
-#3000 $finish;
+#300 $finish;
 end
 
 
